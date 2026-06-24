@@ -138,3 +138,70 @@ class Resume(BaseModel):
             "only include items from a dedicated skills section."
         ),
     )
+
+# ──────────────────────── Gap Analysis ────────────────────────
+
+class SkillMatch(BaseModel):
+    """A skill from the JD and whether the résumé has evidence of it."""
+    skill: str = Field(..., description="The canonical skill name from the JD.")
+    present: bool = Field(..., description="True if the résumé shows evidence of this skill (in skills list or bullets).")
+    evidence: Optional[str] = Field(
+        None,
+        description="The bullet text or skills-list entry that demonstrates this skill, if present. None if not found.",
+    )
+
+
+class GapAnalysis(BaseModel):
+    """Comparison of a candidate's résumé against a job description."""
+    
+    alignment_score: int = Field(
+        ...,
+        ge=1, le=10,
+        description=(
+            "Overall alignment of the résumé to the job, 1-10. "
+            "10 = perfect fit. 7-8 = strong match with minor gaps. "
+            "5-6 = significant gaps but still plausible. 3-4 = major gaps. 1-2 = wrong job."
+        ),
+    )
+    
+    summary: str = Field(
+        ...,
+        description=(
+            "2-3 sentence honest assessment of fit. Specific, not generic. "
+            "Mention the strongest matches and the biggest gaps."
+        ),
+    )
+    
+    required_skill_matches: list[SkillMatch] = Field(
+        ...,
+        description="One entry for each required skill in the JD, showing whether the résumé has evidence of it.",
+    )
+    
+    nice_to_have_matches: list[SkillMatch] = Field(
+        ...,
+        description="Same but for nice-to-have skills.",
+    )
+    
+    strongest_aligned_bullets: list[str] = Field(
+        ...,
+        description=(
+            "The 2-4 résumé bullets that best align with the JD's responsibilities. "
+            "Quote them exactly as written in the résumé."
+        ),
+    )
+    
+    biggest_gaps: list[str] = Field(
+        ...,
+        description=(
+            "The 2-5 most important gaps — required skills or responsibilities the résumé does not address. "
+            "One sentence each, specific."
+        ),
+    )
+    
+    missing_keywords: list[str] = Field(
+        ...,
+        description=(
+            "Domain keywords from the JD that don't appear anywhere in the résumé. "
+            "These are ATS-relevant terms the candidate should consider adding."
+        ),
+    )
