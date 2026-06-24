@@ -205,3 +205,65 @@ class GapAnalysis(BaseModel):
             "These are ATS-relevant terms the candidate should consider adding."
         ),
     )
+
+# ──────────────────────── Bullet Recommendations ────────────────────────
+
+class BulletRecommendation(BaseModel):
+    """A recommendation for what to do with one résumé bullet, given the JD context."""
+    
+    original_text: str = Field(..., description="The bullet's original text, copied exactly as it appeared on the résumé.")
+    
+    experience_company: str = Field(..., description="Which company this bullet belongs to.")
+    
+    action: Literal["keep", "rewrite", "drop"] = Field(
+        ...,
+        description=(
+            "What to do with this bullet:\n"
+            "- 'keep': Already strong and relevant to the JD. No changes needed.\n"
+            "- 'rewrite': Relevant but could be sharper — better keywords, more quantification, or clearer impact for THIS job.\n"
+            "- 'drop': Genuinely off-topic for this role and adds no value. Use sparingly. "
+            "If unsure between drop and rewrite, prefer rewrite."
+        ),
+    )
+    
+    rewritten_text: Optional[str] = Field(
+        None,
+        description=(
+            "ONLY populate when action='rewrite'. The improved bullet. "
+            "Rules: do not invent experience the candidate doesn't have. "
+            "Do not fabricate metrics. Preserve the core fact. "
+            "Improve by: emphasizing JD-relevant keywords, sharpening the impact, "
+            "or reframing context to highlight transferable skills. "
+            "Should be the same length or shorter than the original."
+        ),
+    )
+    
+    reasoning: str = Field(
+        ...,
+        description="1-2 sentences explaining the recommendation. Specific to this bullet and this JD.",
+    )
+
+
+class TailoringRecommendations(BaseModel):
+    """The complete set of per-bullet recommendations for tailoring a résumé to a job."""
+    
+    bullet_recommendations: list[BulletRecommendation] = Field(
+        ...,
+        description="One recommendation per bullet from the résumé, in the order bullets appear.",
+    )
+    
+    suggested_summary: Optional[str] = Field(
+        None,
+        description=(
+            "An improved 2-3 sentence summary/objective tailored to this job, if the candidate has a summary section or would benefit from one. "
+            "Use only facts evident from the résumé — no invented experience."
+        ),
+    )
+    
+    additional_skills_to_add: list[str] = Field(
+        ...,
+        description=(
+            "Skills the candidate HAS evidence of in their bullets but DIDN'T explicitly list in their Skills section. "
+            "Adding these to the Skills section would improve ATS matching. Do not invent skills."
+        ),
+    )
