@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Tailor Agent</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>✂️ Resume Tailor</h1>
+        <p class="tagline">AI-powered résumé tailoring that refuses to lie on your behalf.</p>
+    </header>
+
+    <main>
+        <!-- Input section -->
+        <section class="card" id="input-section">
+            <h2>1. Your Résumé</h2>
+            <div class="resume-input-toggle">
+                <button class="toggle-btn active" data-mode="paste">Paste text</button>
+                <button class="toggle-btn" data-mode="upload">Upload file</button>
+            </div>
+            <textarea
+                id="resume-text"
+                placeholder="Paste your résumé here..."
+                rows="12"
+            ></textarea>
+            <input
+                type="file"
+                id="resume-file"
+                accept=".pdf,.txt,.md"
+                style="display: none;"
+            >
+
+            <h2 style="margin-top: 1.5rem;">2. Job Description</h2>
+            <textarea
+                id="jd-text"
+                placeholder="Paste the full job description here..."
+                rows="12"
+            ></textarea>
+
+            <button id="analyze-btn">Analyze fit</button>
+            <p class="hint">Analysis takes ~30-45 seconds (4 LLM calls in sequence).</p>
+            <div id="status" class="status"></div>
+        </section>
+
+        <!-- Results section -->
+        <section id="results-section" style="display: none;">
+            <!-- Score card -->
+            <div class="card score-card">
+                <div class="score-row">
+                    <div class="score-circle">
+                        <span id="score-value">—</span><span class="score-max">/10</span>
+                    </div>
+                    <div class="score-summary">
+                        <h3>Alignment</h3>
+                        <p id="gap-summary"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills match -->
+            <div class="card">
+                <h3>Required skills</h3>
+                <div id="required-skills" class="skills-grid"></div>
+                <h3 style="margin-top: 1.25rem;">Nice-to-have</h3>
+                <div id="nice-to-have" class="skills-grid"></div>
+            </div>
+
+            <!-- Gaps -->
+            <div class="card">
+                <h3>Biggest gaps</h3>
+                <ul id="gaps-list" class="bullet-list"></ul>
+                <h3 style="margin-top: 1.25rem;">Missing ATS keywords</h3>
+                <p id="missing-keywords" class="keywords-line"></p>
+            </div>
+
+            <!-- Bullet recommendations -->
+            <div class="card">
+                <h3>Bullet recommendations</h3>
+                <p class="hint">Click any rewrite to copy it.</p>
+                <div id="bullet-recs"></div>
+            </div>
+
+            <!-- Suggested summary + skills additions -->
+            <div class="card" id="extras-card">
+                <h3>Suggested summary</h3>
+                <p id="suggested-summary" class="suggested-text"></p>
+
+                <h3 style="margin-top: 1.25rem;">Skills to add</h3>
+                <p id="skills-to-add" class="keywords-line"></p>
+            </div>
+
+            <button id="reset-btn" class="secondary">Start over</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            <a href="/docs" target="_blank">API docs</a>
+        </p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

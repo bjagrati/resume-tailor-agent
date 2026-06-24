@@ -1,0 +1,319 @@
+/* Base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: #f5f6f8;
+    color: #1a1a1a;
+    line-height: 1.5;
+    padding: 2rem 1rem;
+}
+
+main, header, footer {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+header h1 {
+    font-size: 2.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.tagline {
+    color: #555;
+}
+
+/* Cards */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+}
+
+.card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #2c4f7c;
+}
+
+.hint {
+    color: #666;
+    font-size: 0.85rem;
+    margin: 0.5rem 0;
+}
+
+/* Toggle buttons */
+.resume-input-toggle {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.toggle-btn {
+    padding: 0.4rem 0.9rem;
+    background: transparent;
+    color: #555;
+    border: 1px solid #d0d5dd;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.toggle-btn.active {
+    background: #2c4f7c;
+    color: white;
+    border-color: #2c4f7c;
+}
+
+/* Form elements */
+textarea, input[type="text"] {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-family: inherit;
+    background: white;
+    resize: vertical;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #2c4f7c;
+}
+
+button {
+    padding: 0.65rem 1.3rem;
+    background: #2c4f7c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+button:hover { background: #1e3a5f; }
+button:disabled { background: #aab; cursor: not-allowed; }
+
+button.secondary {
+    background: transparent;
+    color: #2c4f7c;
+    border: 1px solid #d0d5dd;
+}
+
+button.secondary:hover { background: #f0f3f8; }
+
+/* Status */
+.status {
+    margin-top: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    display: none;
+}
+
+.status.info { display: block; background: #e8eef7; color: #2c4f7c; }
+.status.success { display: block; background: #e6f4ea; color: #1e6b3a; }
+.status.error { display: block; background: #fce8e6; color: #a8201a; }
+
+/* Score */
+.score-card .score-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.score-circle {
+    flex-shrink: 0;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #2c4f7c;
+    color: white;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    padding-top: 0.5rem;
+}
+
+.score-circle span {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.score-max {
+    font-size: 0.95rem !important;
+    opacity: 0.7;
+    margin-left: 2px;
+}
+
+.score-summary p {
+    color: #2a2a2a;
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+/* Skills grid */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.4rem;
+}
+
+.skill-pill {
+    padding: 0.35rem 0.7rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.skill-pill.present {
+    background: #e6f4ea;
+    color: #1e6b3a;
+}
+
+.skill-pill.absent {
+    background: #fce8e6;
+    color: #a8201a;
+}
+
+.skill-evidence {
+    color: #555;
+    font-size: 0.78rem;
+    margin-top: 0.25rem;
+    padding: 0.4rem 0.7rem;
+    background: #fafbfc;
+    border-radius: 6px;
+    font-style: italic;
+}
+
+/* Bullet list (gaps) */
+.bullet-list {
+    list-style: none;
+    padding: 0;
+}
+
+.bullet-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eef0f3;
+    font-size: 0.92rem;
+}
+
+.bullet-list li:last-child { border-bottom: none; }
+
+/* Bullet recommendations */
+.bullet-rec {
+    border-left: 4px solid #2c4f7c;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.85rem;
+    background: #fafbfc;
+    border-radius: 0 8px 8px 0;
+}
+
+.bullet-rec.action-keep { border-left-color: #4ea36a; }
+.bullet-rec.action-rewrite { border-left-color: #f39c12; }
+.bullet-rec.action-drop { border-left-color: #a8201a; }
+
+.bullet-rec-header {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.82rem;
+    color: #555;
+}
+
+.action-tag {
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+}
+
+.action-tag.keep { background: #d4e8db; color: #1e6b3a; }
+.action-tag.rewrite { background: #fdebcc; color: #8a5a08; }
+.action-tag.drop { background: #f9d1ce; color: #8a1814; }
+
+.bullet-rec .original {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.35rem;
+}
+
+.bullet-rec .original strong {
+    color: #2a2a2a;
+    font-weight: 600;
+}
+
+.bullet-rec .rewrite-text {
+    font-size: 0.93rem;
+    color: #1a1a1a;
+    background: white;
+    padding: 0.6rem 0.75rem;
+    border-radius: 6px;
+    border: 1px dashed #c9d3e0;
+    margin: 0.35rem 0;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.bullet-rec .rewrite-text:hover { background: #f0f6ff; }
+.bullet-rec .rewrite-text.copied { background: #e6f4ea; border-color: #4ea36a; }
+
+.bullet-rec .reasoning {
+    font-size: 0.83rem;
+    color: #666;
+    margin-top: 0.35rem;
+    font-style: italic;
+}
+
+/* Keywords */
+.keywords-line {
+    font-size: 0.88rem;
+    color: #2a2a2a;
+    line-height: 1.6;
+}
+
+.suggested-text {
+    font-size: 0.93rem;
+    color: #1a1a1a;
+    background: #fafbfc;
+    padding: 0.75rem;
+    border-radius: 6px;
+    border-left: 3px solid #2c4f7c;
+    line-height: 1.55;
+}
+
+footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+footer a {
+    color: #2c4f7c;
+    text-decoration: none;
+}
+
+footer a:hover { text-decoration: underline; }
